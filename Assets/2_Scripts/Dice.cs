@@ -14,4 +14,17 @@ public class Dice : MonoBehaviour
         spriteRenderer.sprite = diceFaces[currentValue - 1];
         Debug.Log("ÁÖ»çÀ§ ´«: " + currentValue);
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Attack_Board"))
+        {
+            gameObject.tag = "Attack_Dice";
+        }
+
+        if (other.CompareTag("Defense_Board"))
+        {
+            gameObject.tag = "Defense_Board";
+        }
+    }
 }

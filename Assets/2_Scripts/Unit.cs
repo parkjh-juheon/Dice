@@ -4,7 +4,7 @@ using TMPro;
 
 public class Unit : MonoBehaviour
 {
-    public int maxHealth = 10;
+    public int maxHealth = 30;
     private int currentHealth;
     public TextMeshProUGUI healthText;  // 드래그해서 넣기
 
