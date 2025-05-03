@@ -27,4 +27,34 @@ public class Dice : MonoBehaviour
             gameObject.tag = "Defense_Board";
         }
     }
+
+    public class DiceDrag : MonoBehaviour
+    {
+        private bool isDragging = false;
+        private Vector3 offset;
+
+        void OnMouseDown()
+        {
+            isDragging = true;
+
+            // 마우스와 오브젝트 사이 거리 계산 (z 값 포함)
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            offset = transform.position - mousePosition;
+        }
+
+        void OnMouseDrag()
+        {
+            if (isDragging)
+            {
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mousePosition.z = 0f;  // 2D니까 Z 고정
+                transform.position = mousePosition + offset;
+            }
+        }
+
+        void OnMouseUp()
+        {
+            isDragging = false;
+        }
+    }
 }
