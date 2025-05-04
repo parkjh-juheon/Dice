@@ -4,6 +4,7 @@ public class Dice : MonoBehaviour
 {
     public Sprite[] diceFaces;  // 1~6 이미지
     public SpriteRenderer spriteRenderer;
+    public int value = 1;
 
     public int currentValue { get; private set; }
 
@@ -11,6 +12,7 @@ public class Dice : MonoBehaviour
     public void RollDice()
     {
         currentValue = Random.Range(1, 7);
+        value = currentValue;  // ← 이 줄을 추가해줘야 함!
         spriteRenderer.sprite = diceFaces[currentValue - 1];
         Debug.Log("주사위 눈: " + currentValue);
     }
@@ -24,37 +26,7 @@ public class Dice : MonoBehaviour
 
         if (other.CompareTag("Defense_Board"))
         {
-            gameObject.tag = "Defense_Board";
-        }
-    }
-
-    public class DiceDrag : MonoBehaviour
-    {
-        private bool isDragging = false;
-        private Vector3 offset;
-
-        void OnMouseDown()
-        {
-            isDragging = true;
-
-            // 마우스와 오브젝트 사이 거리 계산 (z 값 포함)
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            offset = transform.position - mousePosition;
-        }
-
-        void OnMouseDrag()
-        {
-            if (isDragging)
-            {
-                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                mousePosition.z = 0f;  // 2D니까 Z 고정
-                transform.position = mousePosition + offset;
-            }
-        }
-
-        void OnMouseUp()
-        {
-            isDragging = false;
+            gameObject.tag = "Defense_Dice";
         }
     }
 }

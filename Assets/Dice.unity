@@ -406,6 +406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   diceFaces: []
   spriteRenderer: {fileID: 0}
+  value: 1
 --- !u!1 &350581706
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,6 +584,7 @@ MonoBehaviour:
   - {fileID: 438895471204581479, guid: bdba9bce0e2e581418558a346a8e2d95, type: 3}
   - {fileID: 8569003786385872269, guid: 2b0b74e8bee7a514eb7c11b193c48117, type: 3}
   spriteRenderer: {fileID: 555115956}
+  value: 1
 --- !u!212 &555115956
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -647,7 +649,7 @@ Transform:
   m_GameObject: {fileID: 555115954}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.04, y: -10.85, z: 0}
+  m_LocalPosition: {x: -0.8, y: -11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -887,6 +889,7 @@ GameObject:
   - component: {fileID: 1083102001}
   - component: {fileID: 1083102000}
   - component: {fileID: 1083101999}
+  - component: {fileID: 1083102002}
   m_Layer: 5
   m_Name: RollDiceButton
   m_TagString: Untagged
@@ -1044,6 +1047,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083101997}
   m_CullTransparentMesh: 1
+--- !u!114 &1083102002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083101997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03e1def4c68316f4eb6c039b506e0b2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetUnit: {fileID: 1748909728}
 --- !u!1 &1235910940
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,6 +1209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   diceFaces: []
   spriteRenderer: {fileID: 0}
+  value: 1
 --- !u!1 &1527338374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,6 +1251,7 @@ MonoBehaviour:
   - {fileID: 438895471204581479, guid: bdba9bce0e2e581418558a346a8e2d95, type: 3}
   - {fileID: 8569003786385872269, guid: 2b0b74e8bee7a514eb7c11b193c48117, type: 3}
   spriteRenderer: {fileID: 1527338376}
+  value: 1
 --- !u!212 &1527338376
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1298,7 +1316,7 @@ Transform:
   m_GameObject: {fileID: 1527338374}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.92, y: -10.69, z: 0}
+  m_LocalPosition: {x: 6, y: -10.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1635,6 +1653,7 @@ MonoBehaviour:
   - {fileID: 438895471204581479, guid: bdba9bce0e2e581418558a346a8e2d95, type: 3}
   - {fileID: 8569003786385872269, guid: 2b0b74e8bee7a514eb7c11b193c48117, type: 3}
   spriteRenderer: {fileID: 1816381420}
+  value: 1
 --- !u!212 &1816381420
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1699,7 +1718,7 @@ Transform:
   m_GameObject: {fileID: 1816381418}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.76, y: -10.93, z: 0}
+  m_LocalPosition: {x: 2.8, y: -10.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1739,7 +1758,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.07295847, y: 0.036478043}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1749,7 +1768,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.5428572, y: 1.5428572}
+  m_Size: {x: 1.6887732, y: 1.7617302}
   m_EdgeRadius: 0
 --- !u!50 &1816381423
 Rigidbody2D:
@@ -1910,6 +1929,7 @@ MonoBehaviour:
   - {fileID: 438895471204581479, guid: bdba9bce0e2e581418558a346a8e2d95, type: 3}
   - {fileID: 8569003786385872269, guid: 2b0b74e8bee7a514eb7c11b193c48117, type: 3}
   spriteRenderer: {fileID: 2035482044}
+  value: 1
 --- !u!212 &2035482044
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1974,7 +1994,7 @@ Transform:
   m_GameObject: {fileID: 2035482042}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.83, y: -10.78, z: 0}
+  m_LocalPosition: {x: 9.6, y: -10.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -19,7 +19,7 @@ public class DiceDrag : MonoBehaviour
         if (isDragging)
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = -1f;  
+            mousePosition.z = 0f;  
             transform.position = mousePosition + offset;
         }
     }
