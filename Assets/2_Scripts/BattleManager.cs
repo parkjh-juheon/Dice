@@ -8,27 +8,33 @@ public class BattleManager : MonoBehaviour
     // UI 버튼의 OnClick()에 이 함수를 연결
     public void RollAndAttack()
     {
-        // Unity 2023.1 이하에서는 이걸로 충분함
         Dice[] allDice = FindObjectsOfType<Dice>();
-        int totalDamage = 0;
+
+        int totalAttack = 0;
+        int totalDefense = 0;
 
         foreach (var dice in allDice)
         {
             if (dice.CompareTag("Attack_Dice"))
             {
-                // 2) 굴리고
                 dice.RollDice();
-                // 3) 값을 합산
-                totalDamage += dice.value;
+                totalAttack += dice.value;
+            }
+            else if (dice.CompareTag("Defense_Dice"))
+            {
+                dice.RollDice();
+                totalDefense += dice.value;
             }
         }
 
-        Debug.Log($"[BattleManager] 총 피해량: {totalDamage}");
+        int finalDamage = Mathf.Max(totalAttack - totalDefense, 0); // 음수 방지
 
-        // 4) 목표 유닛에 적용
+        Debug.Log($"[BattleManager] 공격: {totalAttack}, 방어: {totalDefense}, 최종 피해량: {finalDamage}");
+
         if (targetUnit != null)
         {
-            targetUnit.TakeDamage(totalDamage);
+            targetUnit.TakeDamage(finalDamage);
         }
     }
+
 }
