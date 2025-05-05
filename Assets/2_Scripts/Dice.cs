@@ -19,14 +19,24 @@ public class Dice : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Attack_Board"))
+        if (other.CompareTag("E_Attack_Board"))
         {
-            gameObject.tag = "Attack_Dice";
+            gameObject.tag = "E_Attack_Dice";
         }
 
-        if (other.CompareTag("Defense_Board"))
+        if (other.CompareTag("P_Attack_Board"))
         {
-            gameObject.tag = "Defense_Dice";
+            gameObject.tag = "P_Attack_Dice";
+        }
+
+        if (other.CompareTag("E_Defense_Board"))
+        {
+            gameObject.tag = "E_Defense_Dice";
+        }
+
+        if (other.CompareTag("P_Defense_Board"))
+        {
+            gameObject.tag = "P_Defense_Dice";
         }
     }
 }

@@ -4,10 +4,14 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Defense_Dice
-  - Defense_Board
-  - Attack_Dice
-  - Attack_Board
+  - E_Attack_Board
+  - E_Attack_Dice
+  - P_Attack_Board
+  - P_Attack_Dice
+  - E_Defense_Board
+  - E_Defense_Dice
+  - P_Defense_Board
+  - P_Defense_Dice
   layers:
   - Default
   - TransparentFX

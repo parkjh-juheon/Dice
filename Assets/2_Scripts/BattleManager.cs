@@ -2,39 +2,58 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    [Tooltip("피해를 줄 대상 유닛을 에디터에서 드래그하세요")]
-    public Unit targetUnit;
+    [Tooltip("플레이어 유닛")]
+    public Unit playerUnit;
+    [Tooltip("적 유닛")]
+    public Unit enemyUnit;
 
-    // UI 버튼의 OnClick()에 이 함수를 연결
     public void RollAndAttack()
     {
         Dice[] allDice = FindObjectsOfType<Dice>();
 
-        int totalAttack = 0;
-        int totalDefense = 0;
+        int playerAttack = 0;
+        int playerDefense = 0;
+        int enemyAttack = 0;
+        int enemyDefense = 0;
 
         foreach (var dice in allDice)
         {
-            if (dice.CompareTag("Attack_Dice"))
+            if (dice.CompareTag("P_Attack_Dice"))
             {
                 dice.RollDice();
-                totalAttack += dice.value;
+                playerAttack += dice.value;
             }
-            else if (dice.CompareTag("Defense_Dice"))
+            else if (dice.CompareTag("P_Defense_Dice"))
             {
                 dice.RollDice();
-                totalDefense += dice.value;
+                playerDefense += dice.value;
+            }
+            else if (dice.CompareTag("E_Attack_Dice"))
+            {
+                dice.RollDice();
+                enemyAttack += dice.value;
+            }
+            else if (dice.CompareTag("E_Defense_Dice"))
+            {
+                dice.RollDice();
+                enemyDefense += dice.value;
             }
         }
 
-        int finalDamage = Mathf.Max(totalAttack - totalDefense, 0); // 음수 방지
+        int damageToEnemy = Mathf.Max(playerAttack - enemyDefense, 0);
+        int damageToPlayer = Mathf.Max(enemyAttack - playerDefense, 0);
 
-        Debug.Log($"[BattleManager] 공격: {totalAttack}, 방어: {totalDefense}, 최종 피해량: {finalDamage}");
+        Debug.Log($"[BattleManager] 플레이어 공격: {playerAttack}, 적 방어: {enemyDefense}, 적 피해량: {damageToEnemy}");
+        Debug.Log($"[BattleManager] 적 공격: {enemyAttack}, 플레이어 방어: {playerDefense}, 플레이어 피해량: {damageToPlayer}");
 
-        if (targetUnit != null)
+        if (enemyUnit != null)
         {
-            targetUnit.TakeDamage(finalDamage);
+            enemyUnit.TakeDamage(damageToEnemy);
+        }
+
+        if (playerUnit != null)
+        {
+            playerUnit.TakeDamage(damageToPlayer);
         }
     }
-
 }
