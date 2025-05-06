@@ -1,10 +1,11 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Dice : MonoBehaviour
 {
     public Sprite[] diceFaces;  // 1~6 ÀÌ¹ÌÁö
     public SpriteRenderer spriteRenderer;
-    public int value = 1;
+    public int value = 0;
 
     public int currentValue { get; private set; }
 

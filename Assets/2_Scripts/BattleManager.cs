@@ -7,7 +7,14 @@ public class BattleManager : MonoBehaviour
     [Tooltip("Àû À¯´Ö")]
     public Unit enemyUnit;
 
-    public void RollAndAttack()
+    public EnemyDiceSpawner enemyDiceSpawner;
+
+    public void OnRollButtonClick()
+    {
+        enemyDiceSpawner.RollDice();
+    }
+
+public void RollAndAttack()
     {
         Dice[] allDice = FindObjectsOfType<Dice>();
 
