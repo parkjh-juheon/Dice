@@ -8,6 +8,25 @@ public class BattleManager : MonoBehaviour
     public Unit enemyUnit;
 
     public EnemyDiceSpawner enemyDiceSpawner;
+    private Vector3[] initialPlayerDicePositions;
+    private GameObject[] playerDiceObjects;
+
+    private void Start()
+    {
+        InitializePlayerDice();
+    }
+
+    // 플레이어 주사위 위치 초기화
+    private void InitializePlayerDice()
+    {
+        playerDiceObjects = GameObject.FindGameObjectsWithTag("Player_Dice");
+        initialPlayerDicePositions = new Vector3[playerDiceObjects.Length];
+
+        for (int i = 0; i < playerDiceObjects.Length; i++)
+        {
+            initialPlayerDicePositions[i] = playerDiceObjects[i].transform.position;
+        }
+    }
 
     public void OnRollButtonClick()
     {
@@ -62,5 +81,18 @@ public class BattleManager : MonoBehaviour
         {
             playerUnit.TakeDamage(damageToPlayer);
         }
+    }
+
+    // Reset 버튼을 눌렀을 때 실행
+    public void ResetGame()
+    {
+        // Player Dice 위치 초기화
+        for (int i = 0; i < playerDiceObjects.Length; i++)
+        {
+            playerDiceObjects[i].transform.position = initialPlayerDicePositions[i];
+        }
+
+        // Enemy Dice 새로 생성
+        enemyDiceSpawner.RollDice();
     }
 }
