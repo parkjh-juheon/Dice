@@ -14,7 +14,7 @@ public class BattleManager : MonoBehaviour
         enemyDiceSpawner.RollDice();
     }
 
-public void RollAndAttack()
+    public void RollAndAttack()
     {
         Dice[] allDice = FindObjectsOfType<Dice>();
 
