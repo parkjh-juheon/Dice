@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
@@ -11,9 +12,14 @@ public class BattleManager : MonoBehaviour
     private Vector3[] initialPlayerDicePositions;
     private GameObject[] playerDiceObjects;
 
+    [Header("UI 버튼")]
+    public Button rollButton;
+    public Button resetButton;
+
     private void Start()
     {
         InitializePlayerDice();
+        EnableRollButton(true); // 처음에는 Roll 버튼 활성화
     }
 
     // 플레이어 주사위 위치 초기화
@@ -31,6 +37,8 @@ public class BattleManager : MonoBehaviour
     public void OnRollButtonClick()
     {
         enemyDiceSpawner.RollDice();
+        RollAndAttack();
+        EnableRollButton(false); // Roll 버튼 비활성화
     }
 
     public void RollAndAttack()
@@ -94,5 +102,17 @@ public class BattleManager : MonoBehaviour
 
         // Enemy Dice 새로 생성
         enemyDiceSpawner.RollDice();
+
+        // Roll 버튼 다시 활성화
+        EnableRollButton(true);
+    }
+
+    // Roll 버튼 활성화/비활성화 관리
+    private void EnableRollButton(bool enable)
+    {
+        if (rollButton != null)
+        {
+            rollButton.interactable = enable;
+        }
     }
 }

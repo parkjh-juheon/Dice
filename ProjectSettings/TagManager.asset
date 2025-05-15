@@ -12,6 +12,7 @@ TagManager:
   - E_Defense_Dice
   - P_Defense_Board
   - P_Defense_Dice
+  - Player_Dice
   layers:
   - Default
   - TransparentFX
