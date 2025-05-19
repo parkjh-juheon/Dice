@@ -36,9 +36,9 @@ public class BattleManager : MonoBehaviour
 
     public void OnRollButtonClick()
     {
+        EnableRollButton(false); // 가장 먼저 비활성화
         enemyDiceSpawner.RollDice();
         RollAndAttack();
-        EnableRollButton(false); // Roll 버튼 비활성화
     }
 
     public void RollAndAttack()
