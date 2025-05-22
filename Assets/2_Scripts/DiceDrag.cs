@@ -34,19 +34,39 @@ public class DiceDrag : MonoBehaviour
     {
         isDragging = false;
 
-        // 충돌 체크 (적 보드)
         Collider2D[] colliders = Physics2D.OverlapPointAll(transform.position);
+        bool snapped = false;
+
         foreach (Collider2D collider in colliders)
         {
-            if (collider.CompareTag("E_Attack_Board") || collider.CompareTag("E_Defense_Board"))
+            if (collider.CompareTag("P_Attack_Board") || collider.CompareTag("P_Defense_Board") ||
+                collider.CompareTag("E_Attack_Board") || collider.CompareTag("E_Defense_Board"))
             {
-                // 적 보드에 들어가면 원래 위치로 되돌림
-                transform.position = initialPosition;
-                return;
+                BoardSlotManager slotManager = collider.GetComponent<BoardSlotManager>();
+                if (slotManager != null)
+                {
+                    Transform slot = slotManager.GetFirstEmptySlot();
+                    if (slot != null)
+                    {
+                        // 주사위 위치를 슬롯 위치로 스냅
+                        transform.position = slot.position;
+
+                        // 슬롯에 부모로 넣기 (optional)
+                        transform.SetParent(slot);
+
+                        snapped = true;
+                        break;
+                    }
+                }
             }
         }
 
-        // 드래그 위치를 새로운 초기 위치로 저장 (아군 보드일 경우)
-        initialPosition = transform.position;
+        if (!snapped)
+        {
+            // 아무 보드에도 못 올렸다면 되돌리기
+            transform.position = initialPosition;
+            transform.SetParent(null); // 부모 해제
+        }
     }
+
 }
