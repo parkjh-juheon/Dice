@@ -17,10 +17,16 @@ public class EnemyDiceSpawner : MonoBehaviour
 
     public void SpawnRandomDice()
     {
-        spawnedDice.Clear(); // ★ 기존 주사위 리스트 초기화
+        spawnedDice.Clear();
 
+        // 중복 슬롯 제거
+        HashSet<Transform> slotSet = new HashSet<Transform>(diceSlots);
+        Transform[] uniqueSlots = new Transform[slotSet.Count];
+        slotSet.CopyTo(uniqueSlots);
+
+        // 슬롯 셔플
         System.Random rng = new System.Random();
-        Transform[] shuffledSlots = (Transform[])diceSlots.Clone();
+        Transform[] shuffledSlots = (Transform[])uniqueSlots.Clone();
         for (int i = 0; i < shuffledSlots.Length; i++)
         {
             int swapIndex = rng.Next(i, shuffledSlots.Length);
@@ -33,6 +39,10 @@ public class EnemyDiceSpawner : MonoBehaviour
             if (spawned >= diceToSpawn)
                 break;
 
+            // 슬롯에 이미 자식이 있다면 건너뜀
+            if (slot.childCount > 0)
+                continue;
+
             GameObject diceObj = Instantiate(dicePrefab, slot.position, Quaternion.identity);
             diceObj.transform.SetParent(slot);
             diceObj.tag = "E_Attack_Dice";
@@ -43,11 +53,12 @@ public class EnemyDiceSpawner : MonoBehaviour
 
             Dice dice = diceObj.GetComponent<Dice>();
             if (dice != null)
-                spawnedDice.Add(dice); // ★ 리스트에 추가
+                spawnedDice.Add(dice);
 
             spawned++;
         }
     }
+
 
     public void RollAll()
     {

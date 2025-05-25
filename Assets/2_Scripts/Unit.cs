@@ -9,6 +9,9 @@ public class Unit : MonoBehaviour
 
     public TextMeshProUGUI healthText; // UI에 체력을 표시할 텍스트 (에디터에서 연결해야 함)
 
+    public int CurrentHP => currentHealth;
+
+
     // 게임 시작 시 호출됨
     private void Start()
     {

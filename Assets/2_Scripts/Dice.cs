@@ -1,11 +1,23 @@
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Dice : MonoBehaviour
 {
     public Sprite[] diceFaces;  // 1~6 이미지
     public SpriteRenderer spriteRenderer;
     public int value = 0;
+    void Start()
+    {
+        // 현재 sprite에 따라 value 설정
+        for (int i = 0; i < diceFaces.Length; i++)
+        {
+            if (spriteRenderer.sprite == diceFaces[i])
+            {
+                value = i + 1;
+                currentValue = value;
+                break;
+            }
+        }
+    }
 
     public int currentValue { get; private set; }
 
@@ -18,26 +30,8 @@ public class Dice : MonoBehaviour
         Debug.Log("주사위 눈: " + currentValue);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public int GetValue()
     {
-        if (other.CompareTag("E_Attack_Board"))
-        {
-            gameObject.tag = "E_Attack_Dice";
-        }
-
-        if (other.CompareTag("P_Attack_Board"))
-        {
-            gameObject.tag = "P_Attack_Dice";
-        }
-
-        if (other.CompareTag("E_Defense_Board"))
-        {
-            gameObject.tag = "E_Defense_Dice";
-        }
-
-        if (other.CompareTag("P_Defense_Board"))
-        {
-            gameObject.tag = "P_Defense_Dice";
-        }
+        return value;
     }
 }

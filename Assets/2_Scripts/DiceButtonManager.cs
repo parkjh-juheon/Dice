@@ -11,6 +11,9 @@ public class DiceButtonManager : MonoBehaviour
 
     private bool hasRolled = false;
 
+
+    public BattleManager battleManager;
+
     void Start()
     {
         rollButton.onClick.AddListener(OnRollClicked);
@@ -34,10 +37,13 @@ public class DiceButtonManager : MonoBehaviour
             spawner.RollAll();
         }
 
+        battleManager.CalculateBattle();
+
         hasRolled = true;
         rollButton.interactable = false;
         resetButton.interactable = true;
     }
+
 
     void OnResetClicked()
     {
