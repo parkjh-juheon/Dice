@@ -4,34 +4,29 @@ public class Dice : MonoBehaviour
 {
     public Sprite[] diceFaces;  // 1~6 이미지
     public SpriteRenderer spriteRenderer;
-    public int value = 0;
+    public int CurrentValue { get; private set; } = 1;  // 기본값 1로 설정 (0은 주사위 값으로 부적절)
+
     void Start()
     {
-        // 현재 sprite에 따라 value 설정
         for (int i = 0; i < diceFaces.Length; i++)
         {
             if (spriteRenderer.sprite == diceFaces[i])
             {
-                value = i + 1;
-                currentValue = value;
+                CurrentValue = i + 1;
                 break;
             }
         }
     }
 
-    public int currentValue { get; private set; }
-
-    // 버튼에서 이 함수를 호출
     public void RollDice()
     {
-        currentValue = Random.Range(1, 7);
-        value = currentValue;  // ← 이 줄을 추가해줘야 함!
-        spriteRenderer.sprite = diceFaces[currentValue - 1];
-        Debug.Log("주사위 눈: " + currentValue);
+        CurrentValue = Random.Range(1, 7);
+        spriteRenderer.sprite = diceFaces[CurrentValue - 1];
+        Debug.Log("주사위 눈: " + CurrentValue);
     }
 
     public int GetValue()
     {
-        return value;
+        return CurrentValue;
     }
 }

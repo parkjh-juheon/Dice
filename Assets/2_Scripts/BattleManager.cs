@@ -47,7 +47,9 @@ public class BattleManager : MonoBehaviour
                 Dice dice = slot.GetChild(0).GetComponent<Dice>();
                 if (dice != null)
                 {
-                    sum += dice.GetValue();
+                    int value = dice.GetValue();
+                    if (value > 0) // 굴려진 주사위만 합산
+                        sum += value;
                 }
             }
         }
