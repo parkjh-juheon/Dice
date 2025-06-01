@@ -1,3 +1,4 @@
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,8 +7,8 @@ public class DiceButtonManager : MonoBehaviour
     public Button rollButton;
     public Button resetButton;
 
-    public PlayerDiceManager playerDiceManager; // ÇÃ·¹ÀÌ¾î ÁÖ»çÀ§ °ü·Ã ·ÎÁ÷
-    public EnemyDiceSpawner[] enemySpawners;    // °¢ Àû À¯´ÖÀÇ ÁÖ»çÀ§ ½ºÆ÷³Ê
+    public PlayerDiceManager playerDiceManager; // í”Œë ˆì´ì–´ ì£¼ì‚¬ìœ„ ê´€ë ¨ ë¡œì§
+    public List<EnemyDiceSpawner> enemySpawners = new List<EnemyDiceSpawner>(); 
 
     private bool hasRolled = false;
 
@@ -19,7 +20,7 @@ public class DiceButtonManager : MonoBehaviour
         rollButton.onClick.AddListener(OnRollClicked);
         resetButton.onClick.AddListener(OnResetClicked);
 
-        // ÃÊ±â »óÅÂ: Roll¸¸ °¡´É
+        // ì´ˆê¸° ìƒíƒœ: Rollë§Œ ê°€ëŠ¥
         rollButton.interactable = true;
         resetButton.interactable = false;
     }
@@ -28,10 +29,10 @@ public class DiceButtonManager : MonoBehaviour
     {
         if (hasRolled) return;
 
-        // ÇÃ·¹ÀÌ¾î ÁÖ»çÀ§ ±¼¸®±â
+        // í”Œë ˆì´ì–´ ì£¼ì‚¬ìœ„ êµ´ë¦¬ê¸°
         playerDiceManager.RollAll();
 
-        // Àû ÁÖ»çÀ§ ±¼¸®±â
+        // ì  ì£¼ì‚¬ìœ„ êµ´ë¦¬ê¸°
         foreach (var spawner in enemySpawners)
         {
             spawner.RollAll();
@@ -49,17 +50,31 @@ public class DiceButtonManager : MonoBehaviour
     {
         if (!hasRolled) return;
 
-        // ÇÃ·¹ÀÌ¾î ÁÖ»çÀ§ ¸®¼Â
+        // í”Œë ˆì´ì–´ ì£¼ì‚¬ìœ„ ë¦¬ì…‹
         playerDiceManager.ResetAll();
 
-        // Àû ÁÖ»çÀ§ ¸®½ºÆù
+        // ì‚´ì•„ ìˆëŠ” ì ì˜ ì£¼ì‚¬ìœ„ë§Œ ë¦¬ì…‹
         foreach (var spawner in enemySpawners)
         {
-            spawner.RespawnAll();
+            if (spawner == null) continue; 
+
+            Unit enemyUnit = spawner.GetComponent<Unit>();
+            if (enemyUnit != null && enemyUnit.CurrentHP > 0)
+            {
+                spawner.RespawnAll();
+            }
         }
 
         hasRolled = false;
         rollButton.interactable = true;
         resetButton.interactable = false;
+    }
+
+    public void RemoveEnemySpawner(EnemyDiceSpawner spawner)
+    {
+        if (enemySpawners.Contains(spawner))
+        {
+            enemySpawners.Remove(spawner);
+        }
     }
 }

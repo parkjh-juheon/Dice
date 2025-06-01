@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyDiceSpawner : MonoBehaviour
@@ -8,23 +8,31 @@ public class EnemyDiceSpawner : MonoBehaviour
     public int diceToSpawn = 3;
     public Color diceColor = Color.red;
 
-    private List<Dice> spawnedDice = new List<Dice>(); // �� �߰�
+    private List<Dice> spawnedDice = new List<Dice>();
+
+    private Unit unit; 
 
     private void Start()
     {
+        unit = GetComponent<Unit>(); 
         SpawnRandomDice();
     }
 
     public void SpawnRandomDice()
     {
-        spawnedDice.Clear();
+        if (unit == null || unit.Equals(null) || unit.Isdead)
+        {
+            Debug.LogWarning($"{gameObject.name}의 유닛이 죽었거나 존재하지 않음. 주사위 생성 취소.");
+            return;
+        }
 
-        // �ߺ� ���� ����
+    spawnedDice.Clear();
+
         HashSet<Transform> slotSet = new HashSet<Transform>(diceSlots);
         Transform[] uniqueSlots = new Transform[slotSet.Count];
         slotSet.CopyTo(uniqueSlots);
 
-        // ���� ����
+        // 셔플
         System.Random rng = new System.Random();
         Transform[] shuffledSlots = (Transform[])uniqueSlots.Clone();
         for (int i = 0; i < shuffledSlots.Length; i++)
@@ -39,7 +47,6 @@ public class EnemyDiceSpawner : MonoBehaviour
             if (spawned >= diceToSpawn)
                 break;
 
-            // ���Կ� �̹� �ڽ��� �ִٸ� �ǳʶ�
             if (slot.childCount > 0)
                 continue;
 
@@ -59,9 +66,20 @@ public class EnemyDiceSpawner : MonoBehaviour
         }
     }
 
-
     public void RollAll()
     {
+        if (unit == null || unit.Equals(null) || unit.Isdead)
+        {
+            Debug.LogWarning($"{gameObject.name}의 유닛이 죽었거나 존재하지 않음. 작업 취소.");
+            return;
+        }
+
+        if (unit == null || unit.Isdead)
+        {
+            Debug.LogWarning($"{gameObject.name}의 유닛이 죽었거나 존재하지 않음. 주사위 굴리기 취소.");
+            return;
+        }
+
         foreach (var dice in spawnedDice)
         {
             dice.RollDice();
@@ -70,6 +88,18 @@ public class EnemyDiceSpawner : MonoBehaviour
 
     public void RespawnAll()
     {
+        if (unit == null || unit.Equals(null) || unit.Isdead)
+        {
+            Debug.LogWarning($"{gameObject.name}의 유닛이 죽었거나 존재하지 않음. 작업 취소.");
+            return;
+        }
+
+        if (unit == null || unit.Isdead)
+        {
+            Debug.LogWarning($"{gameObject.name}의 유닛이 죽었거나 존재하지 않음. 주사위 리스폰 취소.");
+            return;
+        }
+
         foreach (var dice in spawnedDice)
         {
             Destroy(dice.gameObject);

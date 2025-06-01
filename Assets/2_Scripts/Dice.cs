@@ -4,7 +4,7 @@ public class Dice : MonoBehaviour
 {
     public Sprite[] diceFaces;  // 1~6 이미지
     public SpriteRenderer spriteRenderer;
-    public int CurrentValue { get; private set; } = 1;  // 기본값 1로 설정 (0은 주사위 값으로 부적절)
+    public int CurrentValue { get; private set; } = 0;  // 기본값 1로 설정 (0은 주사위 값으로 부적절)
 
     void Start()
     {
@@ -22,7 +22,6 @@ public class Dice : MonoBehaviour
     {
         CurrentValue = Random.Range(1, 7);
         spriteRenderer.sprite = diceFaces[CurrentValue - 1];
-        Debug.Log("주사위 눈: " + CurrentValue);
     }
 
     public int GetValue()

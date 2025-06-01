@@ -6,35 +6,56 @@ public class BattleManager : MonoBehaviour
     public Unit player;
     public List<Unit> enemyUnits;
 
-    public GameObject playerAttackBoard1; // Goblin 공격용
-    public GameObject playerAttackBoard2; // MushroomMan 공격용
     public GameObject playerDefenseBoard;
     public GameObject enemyAttackBoard;
-    public GameObject enemyDefenseBoard1; // Goblin
-    public GameObject enemyDefenseBoard2; // MushroomMan
+
+    public List<GameObject> playerAttackBoards; // 플레이어의 공격 보드들
+    public List<GameObject> enemyDefenseBoards; // 각 적의 방어 보드들
 
     public void CalculateBattle()
     {
-        // Player에게 피해 계산
+        Debug.Log("[BattleManager] CalculateBattle 호출됨");
+
+        // 플레이어 피해 계산
         int enemyAttack = SumDiceValuesInBoard(enemyAttackBoard.transform);
         int playerDefense = SumDiceValuesInBoard(playerDefenseBoard.transform);
         int damageToPlayer = Mathf.Max(enemyAttack - playerDefense, 0);
+        Debug.Log($"[Player 피해 계산] 적 공격 합: {enemyAttack}, 플레이어 방어 합: {playerDefense}, 최종 피해량: {damageToPlayer}");
         player.TakeDamage(damageToPlayer);
         Debug.Log($"Player가 {damageToPlayer}의 피해를 입음. 남은 체력: {player.CurrentHP}");
 
-        // Goblin 피해 계산
-        int playerAttack1 = SumDiceValuesInBoard(playerAttackBoard1.transform);
-        int goblinDefense = SumDiceValuesInBoard(enemyDefenseBoard1.transform);
-        int damageToGoblin = Mathf.Max(playerAttack1 - goblinDefense, 0);
-        enemyUnits[0].TakeDamage(damageToGoblin);
-        Debug.Log($"Goblin이 {damageToGoblin}의 피해를 입음. 남은 체력: {enemyUnits[0].CurrentHP}");
+        // 각 적 유닛 피해 계산
+        for (int i = 0; i < enemyUnits.Count; i++)
+        {
+            int playerAttack = i < playerAttackBoards.Count
+                ? SumDiceValuesInBoard(playerAttackBoards[i].transform)
+                : 0;
 
-        // MushroomMan 피해 계산
-        int playerAttack2 = SumDiceValuesInBoard(playerAttackBoard2.transform);
-        int mushroomDefense = SumDiceValuesInBoard(enemyDefenseBoard2.transform);
-        int damageToMushroom = Mathf.Max(playerAttack2 - mushroomDefense, 0);
-        enemyUnits[1].TakeDamage(damageToMushroom);
-        Debug.Log($"MushroomMan이 {damageToMushroom}의 피해를 입음. 남은 체력: {enemyUnits[1].CurrentHP}");
+            int enemyDefense = i < enemyDefenseBoards.Count
+                ? SumDiceValuesInBoard(enemyDefenseBoards[i].transform)
+                : 0;
+
+            int damageToEnemy = Mathf.Max(playerAttack - enemyDefense, 0);
+            Debug.Log($"[Enemy {i}] 공격: {playerAttack}, 방어: {enemyDefense}, 피해량: {damageToEnemy}");
+
+            enemyUnits[i].TakeDamage(damageToEnemy);
+            Debug.Log($"Enemy {i}가 {damageToEnemy}의 피해를 입음. 남은 체력: {enemyUnits[i].CurrentHP}");
+        }
+    }
+
+    public void ResetAllEnemyDice()
+    {
+        for (int i = 0; i < enemyUnits.Count; i++)
+        {
+            Unit enemy = enemyUnits[i];
+
+            if (enemy == null || enemy.CurrentHP <= 0)
+                continue;
+
+            EnemyDiceSpawner spawner = enemy.GetComponent<EnemyDiceSpawner>();
+            if (spawner != null)
+                spawner.RespawnAll();
+        }
     }
 
     private int SumDiceValuesInBoard(Transform board)
