@@ -20,13 +20,9 @@ public class EnemyDiceSpawner : MonoBehaviour
 
     public void SpawnRandomDice()
     {
-        if (unit == null || unit.Equals(null) || unit.Isdead)
-        {
-            Debug.LogWarning($"{gameObject.name}의 유닛이 죽었거나 존재하지 않음. 주사위 생성 취소.");
-            return;
-        }
+        if (!enabled || (unit != null && unit.Isdead)) return;
 
-    spawnedDice.Clear();
+        spawnedDice.Clear();
 
         HashSet<Transform> slotSet = new HashSet<Transform>(diceSlots);
         Transform[] uniqueSlots = new Transform[slotSet.Count];
@@ -66,46 +62,27 @@ public class EnemyDiceSpawner : MonoBehaviour
         }
     }
 
+    public void RespawnAll()
+    {
+        if (!enabled || (unit != null && unit.Isdead)) return;
+
+        foreach (var dice in spawnedDice)
+        {
+            if (dice != null)
+                Destroy(dice.gameObject);
+        }
+
+        spawnedDice.Clear();
+        SpawnRandomDice();
+    }
+
+
     public void RollAll()
     {
-        if (unit == null || unit.Equals(null) || unit.Isdead)
-        {
-            Debug.LogWarning($"{gameObject.name}의 유닛이 죽었거나 존재하지 않음. 작업 취소.");
-            return;
-        }
-
-        if (unit == null || unit.Isdead)
-        {
-            Debug.LogWarning($"{gameObject.name}의 유닛이 죽었거나 존재하지 않음. 주사위 굴리기 취소.");
-            return;
-        }
-
         foreach (var dice in spawnedDice)
         {
             dice.RollDice();
         }
     }
 
-    public void RespawnAll()
-    {
-        if (unit == null || unit.Equals(null) || unit.Isdead)
-        {
-            Debug.LogWarning($"{gameObject.name}의 유닛이 죽었거나 존재하지 않음. 작업 취소.");
-            return;
-        }
-
-        if (unit == null || unit.Isdead)
-        {
-            Debug.LogWarning($"{gameObject.name}의 유닛이 죽었거나 존재하지 않음. 주사위 리스폰 취소.");
-            return;
-        }
-
-        foreach (var dice in spawnedDice)
-        {
-            Destroy(dice.gameObject);
-        }
-
-        spawnedDice.Clear();
-        SpawnRandomDice();
-    }
 }

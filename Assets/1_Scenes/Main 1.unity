@@ -1208,6 +1208,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   healthText: {fileID: 1943523259}
+  buttonManager: {fileID: 1971296068}
+  battleManager: {fileID: 1037218832}
 --- !u!212 &342783224
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1453,6 +1455,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 30
   healthText: {fileID: 0}
+  buttonManager: {fileID: 0}
+  battleManager: {fileID: 0}
 --- !u!1 &368086003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1660,6 +1664,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   healthText: {fileID: 1928573332}
+  buttonManager: {fileID: 1971296068}
+  battleManager: {fileID: 1037218832}
 --- !u!212 &483252597
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4675,6 +4681,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 30
   healthText: {fileID: 350581707}
+  buttonManager: {fileID: 1971296068}
+  battleManager: {fileID: 1037218832}
 --- !u!212 &1748909729
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5413,6 +5421,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 30
   healthText: {fileID: 0}
+  buttonManager: {fileID: 0}
+  battleManager: {fileID: 0}
 --- !u!1 &1935639482
 GameObject:
   m_ObjectHideFlags: 0
@@ -5651,6 +5661,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 30
   healthText: {fileID: 0}
+  buttonManager: {fileID: 0}
+  battleManager: {fileID: 0}
 --- !u!1 &1971296065
 GameObject:
   m_ObjectHideFlags: 0

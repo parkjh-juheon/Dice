@@ -51,10 +51,6 @@ public class BattleManager : MonoBehaviour
 
             if (enemy == null || enemy.CurrentHP <= 0)
                 continue;
-
-            EnemyDiceSpawner spawner = enemy.GetComponent<EnemyDiceSpawner>();
-            if (spawner != null)
-                spawner.RespawnAll();
         }
     }
 

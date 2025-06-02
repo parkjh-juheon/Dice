@@ -50,16 +50,14 @@ public class DiceButtonManager : MonoBehaviour
     {
         if (!hasRolled) return;
 
-        // 플레이어 주사위 리셋
         playerDiceManager.ResetAll();
 
-        // 살아 있는 적의 주사위만 리셋
         foreach (var spawner in enemySpawners)
         {
-            if (spawner == null) continue; 
+            if (spawner == null) continue;
 
             Unit enemyUnit = spawner.GetComponent<Unit>();
-            if (enemyUnit != null && enemyUnit.CurrentHP > 0)
+            if (enemyUnit != null && !enemyUnit.Isdead)
             {
                 spawner.RespawnAll();
             }

@@ -2493,13 +2493,12 @@ MonoBehaviour:
   player: {fileID: 1748909728}
   enemyUnits:
   - {fileID: 342783223}
-  - {fileID: 0}
-  playerAttackBoard1: {fileID: 806072777}
-  playerAttackBoard2: {fileID: 0}
   playerDefenseBoard: {fileID: 992257058}
   enemyAttackBoard: {fileID: 1235910940}
-  enemyDefenseBoard1: {fileID: 1644267500}
-  enemyDefenseBoard2: {fileID: 0}
+  playerAttackBoards:
+  - {fileID: 806072777}
+  enemyDefenseBoards:
+  - {fileID: 1644267500}
 --- !u!1 &1083101997
 GameObject:
   m_ObjectHideFlags: 0
@@ -4716,7 +4715,6 @@ MonoBehaviour:
   playerDiceManager: {fileID: 800649592}
   enemySpawners:
   - {fileID: 342783226}
-  - {fileID: 0}
   battleManager: {fileID: 1037218832}
 --- !u!1 &1976285410
 GameObject:

@@ -12,13 +12,17 @@ public class Unit : MonoBehaviour
 
     public bool Isdead => currentHealth <= 0;
 
+    [SerializeField]
     private DiceButtonManager buttonManager;
+
+    [SerializeField]
+    private BattleManager battleManager;
 
     private void Start()
     {
         currentHealth = maxHealth;
         UpdateHealthText();
-        buttonManager = FindObjectOfType<DiceButtonManager>();
+        // buttonManager는 Inspector에서 할당
     }
 
     public void TakeDamage(int amount)
@@ -50,14 +54,22 @@ public class Unit : MonoBehaviour
         }
     }
 
-    private void Die()
+private void Die()
+{
+    EnemyDiceSpawner spawner = GetComponent<EnemyDiceSpawner>();
+    if (buttonManager != null && spawner != null)
     {
-        EnemyDiceSpawner spawner = GetComponent<EnemyDiceSpawner>();
-        if (buttonManager != null && spawner != null)
-        {
-            buttonManager.RemoveEnemySpawner(spawner);
-        }
-
-        Destroy(gameObject);
+        buttonManager.RemoveEnemySpawner(spawner);
+        spawner.enabled = false;
+        Debug.Log($"{gameObject.name}의 DiceSpawner 비활성화됨.");
     }
+
+    // BattleManager에서 제거
+    if (battleManager != null)
+    {
+        battleManager.enemyUnits.Remove(this);
+    }
+
+    Destroy(gameObject);
+}
 }
