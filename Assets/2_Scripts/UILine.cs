@@ -4,20 +4,28 @@ public class UILine : MonoBehaviour
 {
     public RectTransform startRect;
     public RectTransform endRect;
+    public float thickness = 5f; // Inspector에서 조정 가능
+
+    RectTransform rectTransform;
+
+    void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
 
     void Update()
     {
-        Vector2 start = startRect.anchoredPosition;
-        Vector2 end = endRect.anchoredPosition;
-        Vector2 center = (start + end) / 2;
+        if (startRect == null || endRect == null) return;
 
-        RectTransform rt = GetComponent<RectTransform>();
-        rt.anchoredPosition = center;
+        Vector3 startPos = startRect.position;
+        Vector3 endPos = endRect.position;
+        Vector3 direction = endPos - startPos;
+        float distance = direction.magnitude;
 
-        float length = Vector2.Distance(start, end);
-        rt.sizeDelta = new Vector2(length, 3f);
+        rectTransform.sizeDelta = new Vector2(distance, thickness); // ← 여기서 사용
+        rectTransform.position = (startPos + endPos) / 2f;
 
-        float angle = Mathf.Atan2(end.y - start.y, end.x - start.x) * Mathf.Rad2Deg;
-        rt.localRotation = Quaternion.Euler(0, 0, angle);
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        rectTransform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }
